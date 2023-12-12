@@ -4,8 +4,8 @@ on:
 
 jobs:
   Plan_Dev:
-    if: github.ref == 'refs/heads/FeatureBranch1'
-    uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_plan.yml@FeatureBranch1
+    if: github.ref == 'refs/heads/dev'
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_plan.yml@dev
     with:
       path: IAMRoles
       tf_vars_file: dev.tfvars
@@ -15,7 +15,7 @@ jobs:
 
   Deploy_Dev:
     needs: Plan_Dev
-    uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_appy.yml@FeatureBranch1
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_appy.yml@dev
     with:
       path: IAMRoles
       tf_vars_file: dev.tfvars
@@ -34,11 +34,11 @@ jobs:
       cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
   Deploy_Prod:
-    needs: Plan_Uat
-    uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_appy.yml@main
+    needs: Plan_Prod
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_appy.yml@main
     with:
       path: IAMRoles
-      tf_vars_file: uat.tfvars
-      gh_environment: uat
+      tf_vars_file: Prod.tfvars
+      gh_environment: Prod
     secrets:
       cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
