@@ -23,7 +23,7 @@ jobs:
     secrets:
       cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-  Plan_Uat:
+  Plan_Prod:
     if: github.ref == 'refs/heads/main'
     uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_plan.yml@main
     with:
@@ -33,7 +33,7 @@ jobs:
     secrets:
       cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-  Deploy_Uat:
+  Deploy_Prod:
     needs: Plan_Uat
     uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_appy.yml@main
     with:
