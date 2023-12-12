@@ -7,10 +7,10 @@ terraform {
 
 	backend "remote" {
 		hostname = "app.terraform.io"
-		organization = "CloudQuickLabs"
+		organization = "AWS-Architet-org"
 
 		workspaces {
-			name = "AWSBackup"
+			name = "Test-workspace"
 		}
 	}
 }
