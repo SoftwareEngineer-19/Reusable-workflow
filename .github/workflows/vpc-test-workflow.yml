@@ -1,0 +1,40 @@
+name: "vpc-test-workflow"
+on:
+  workflow_dispatch:
+
+jobs:
+  Plan_Dev:
+    if: github.ref == 'refs/heads/dev'
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_plan.yml@dev
+    with:
+      path: VPC-test
+      gh_environment: dev
+    secrets:
+      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+  Deploy_Dev:
+    needs: Plan_Dev
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_appy.yml@dev
+    with:
+      path: VPC-test
+      gh_environment: dev
+    secrets:
+      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+  Plan_Prod:
+    if: github.ref == 'refs/heads/main'
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_plan.yml@main
+    with:
+      path: VPC-test
+      gh_environment: prod
+    secrets:
+      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+  Deploy_Prod:
+    needs: Plan_Prod
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_appy.yml@main
+    with:
+      path: VPC-test
+      gh_environment: prod
+    secrets:
+      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
