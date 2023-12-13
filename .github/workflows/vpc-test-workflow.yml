@@ -23,7 +23,7 @@ jobs:
 
   Plan_Prod:
     if: github.ref == 'refs/heads/main'
-    uses: RekhuGopal/gitreusableflows/.github/workflows/aws_tf_plan.yml@main
+    uses: SoftwareEngineer-19/Workflow-AWS-Multi-Account/.github/workflows/aws_tf_plan.yml@main
     with:
       path: VPC-test
       gh_environment: prod
